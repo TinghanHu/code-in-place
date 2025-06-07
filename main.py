@@ -21,8 +21,8 @@ def main():
 
     #1: Set up the World
     canvas = Canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
-    player = canvas.create_rectangle(0, 0, 0+SIZE, 0+SIZE,'blue')
-    goal = canvas.create_rectangle(350, 350, 350+SIZE, 350+SIZE,'salmon')
+    player = canvas.create_rectangle(0, 0, 0+SIZE, 0+SIZE,fill = 'blue')
+    goal = canvas.create_rectangle(350, 350, 350+SIZE, 350+SIZE,fill = 'salmon')
     
     # 2: Animation loop
     dx = 20
@@ -34,15 +34,18 @@ def main():
         # sleep
         time.sleep(DELAY)
         #3: Handle Key Press
-        key = canvas.get_last_key_press()
-        if key == 'ArrowLeft':
-            direction = 'left'
-        elif key == 'ArrowRight':
-            direction = 'right'
-        elif key == 'ArrowUp':
-            direction = 'up'
-        elif key == 'ArrowDown':
-            direction = 'down'
+        keys = canvas.get_new_key_presses()
+        if keys:
+            key = keys[0].keysym
+            print("你按下了：", key)
+            if key == 'ArrowLeft':
+                direction = 'left'
+            elif key == 'ArrowRight':
+                direction = 'right'
+            elif key == 'ArrowUp':
+                direction = 'up'
+            elif key == 'ArrowDown':
+                direction = 'down'
         #4: Detecting collisions
         if is_out_of_bounds(canvas, player, 400, 400):
             print("Game Over!")
